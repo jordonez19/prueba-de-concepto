@@ -1,0 +1,22 @@
+{
+  "name": "prueba-de-concepto",
+  "version": "V1.0.0",
+  "main": "node.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "Plurall",
+  "license": "ISC",
+  "description": "API para comunicación con Asterisk",
+  "dependencies": {
+    "asterisk-manager": "^0.2.0",
+    "axios": "^1.7.9",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.9"
+  }
+}
