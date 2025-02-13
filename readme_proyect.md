@@ -1,4 +1,5 @@
 # Modulación de carpetas
+----
 
 │── 📂 src
 
@@ -14,14 +15,11 @@
 
 │ │── 📂 services
 
-│ │ │── asteriskService.js 👈 Servicio para interactuar con Asterisk
-
-│ │ │── hubspotService.js 👈 Servicio para integración con HubSpot
+│ │ │── asteriskService.js 👈 Servicio para interactuar con Asterisk y guardar en Hubspot
 
 │ │── app.js 👈 Punto de configuración
 
 │ │── index.js 👈 Punto de entrada principal
-
 
 │── .env 👈 Variables de entorno
 

@@ -154,6 +154,123 @@ fwconsole ma refreshsignatures
 fwconsole reload
 ```
 
+# Configuración de ARI y PJSIP en Asterisk con FreePBX
+
+## 1. Configurar ARI en `http.conf`
+
+Este archivo habilita el servicio HTTP que ARI usa para comunicarse.
+
+1. Edita el archivo:
+   ```bash
+   sudo nano /etc/asterisk/http.conf
+   Asegúrate de que tenga esta configuración:
+   ```
+
+```bash
+
+[general]
+enabled=yes
+bindaddr=0.0.0.0 ; Escuchar en todas las interfaces
+bindport=8088 ; Puerto HTTP de Asterisk
+
+```
+
+Puedes cambiar bindport si deseas otro puerto.
+Si tienes un firewall en EC2, asegúrate de abrir el puerto elegido.
+Guarda y cierra (CTRL + X, luego Y y ENTER).
+
+
+2. Configurar usuarios de ARI en ari.conf
+   Aquí defines los credenciales para acceder a la API REST de Asterisk.
+
+Edita el archivo:
+
+```bash
+sudo nano /etc/asterisk/ari.conf
+Agrega un usuario con permisos:
+```
+
+```bash
+
+[asteriskuser]
+type=user
+password=asteriskpass ; Cambia esto por una contraseña segura
+read=all
+write=all
+
+```
+
+Guarda y cierra.
+
+3. Configurar pjsip.conf (Si usas PJSIP en FreePBX)
+   Si necesitas configurar el transporte SIP para que Asterisk se comunique con otros servicios VoIP:
+
+Edita:
+
+```bash
+
+sudo nano /etc/asterisk/pjsip.conf
+Asegúrate de tener algo como:
+
+```
+
+```bash
+
+
+[transport-udp]
+type=transport
+protocol=udp
+bind=0.0.0.0:5060 ; O el puerto que uses para SIP
+
+[endpoint-sample]
+type=endpoint
+transport=transport-udp
+context=from-internal
+disallow=all
+allow=ulaw
+aors=sample-aor
+
+[sample-aor]
+type=aor
+max_contacts=1
+```
+
+# Guarda y cierra.
+
+4. Reiniciar Asterisk para aplicar cambios
+   Ejecuta:
+
+
+```bash
+
+
+sudo systemctl restart asterisk
+o dentro de la consola de Asterisk:
+```
+
+
+
+asterisk -rx "core restart now" 5. Probar que ARI funciona
+Desde tu servidor EC2, prueba con curl:
+
+```bash
+curl -u asteriskuser:asteriskpass http://localhost:8088/ari/api-docs/resources.json
+```
+Si responde con un JSON, ARI está funcionando correctamente.
+
+Si quieres acceder desde otro equipo, usa la IP pública del servidor:
+
+```bash
+curl -u asteriskuser:asteriskpass http://TU_IP_PUBLICA:8088/ari/api-docs/resources.json
+```
+Si tienes problemas, revisa el firewall y asegúrate de que el puerto 8088 está abierto.
+
+Notas finales
+Si usas FreePBX, algunas configuraciones de pjsip.conf pueden ser gestionadas desde la GUI.
+Si necesitas habilitar AMI (Manager Interface) en vez de ARI, usa manager.conf.
+Para seguridad, usa HTTPS en http.conf y cambia credenciales en ari.conf.
+
+
 ## Comandos de Administración Básica
 
 ### Reiniciar servicios

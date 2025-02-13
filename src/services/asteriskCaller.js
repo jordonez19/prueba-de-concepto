@@ -38,6 +38,9 @@ class AsteriskCaller {
 
     setupEventHandlers() {
         this.ami.on("managerevent", (event) => {
+            
+            console.log(event.event)
+            
             switch (event.event) {
                 case "OriginateResponse":
                     console.log(`📞 Respuesta de Originate: ${event.response}, ActionID: ${event.actionid}, UniqueID: ${event.uniqueid}`);
@@ -78,7 +81,7 @@ class AsteriskCaller {
                         callInfo.ended = true;
 
                         console.log(`📊 Duración total de la llamada: ${callInfo.duration} segundos`);
-
+                        console.log('hang up event: ', callInfo.hubClientId)
                         // Registrar en HubSpot
                         this.registerCallInHubSpot(
                             callInfo.hubClientId,
@@ -104,6 +107,7 @@ class AsteriskCaller {
 
     async makeCall(numberToCall, extensionToConnect, callerId = "plurall", hubClientId) {
         console.log("📞 Llamando a:", numberToCall);
+        console.log("hubClientId:", hubClientId);
 
         return new Promise((resolve, reject) => {
             const originateParams = {
@@ -136,8 +140,6 @@ class AsteriskCaller {
             });
         });
     }
-
-
 
 
     async registerCallInHubSpot(hubClientId, callDuration, callStatus, callDisposition) {
