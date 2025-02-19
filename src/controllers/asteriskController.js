@@ -2,7 +2,7 @@ import AsteriskCaller from "../services/asteriskCaller.js";
 
 // Inicializa una instancia de AsteriskCaller
 const caller = new AsteriskCaller({
-    host: '54.227.121.232',
+    host: '3.86.251.200',
     port: 5038,
     username: 'xavi_ami',
     password: 'password',
@@ -20,22 +20,6 @@ export const connectToAsterisk = async (req, res) => {
 };
 
 // Realizar una llamada
-/* export const makeCall = async (req, res) => {
-    const { numberToCall, extensionToConnect, callerId, hubClientId } = req.body;
-
-    if (!numberToCall || !extensionToConnect) {
-        return res.status(400).json({ error: "numberToCall y extensionToConnect son requeridos" });
-    }
-
-    try {
-        const result = await caller.makeCall(numberToCall, extensionToConnect, callerId, hubClientId);
-        res.status(200).json({ message: "Llamada iniciada", result });
-    } catch (err) {
-        res.status(500).json({ error: "Error al iniciar la llamada", details: err.message });
-    }
-};
- */
-
 export const makeCall = async (req, res) => {
     const { numberToCall, extensionToConnect, callerId, hubClientId } = req.body;
 

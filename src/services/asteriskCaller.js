@@ -13,7 +13,7 @@ const HUBSPOT_HEADERS = {
 class AsteriskCaller {
     constructor(config = {}) {
         this.config = {
-            host: process.env.HOST || "54.227.121.232",
+            host: process.env.HOST || "3.86.251.200",
             port: process.env.PORT_AMI || 5038,
             username: process.env.USERNAME || "xavi_ami",
             password: process.env.PASSWORD || "password",
@@ -38,7 +38,7 @@ class AsteriskCaller {
 
     setupEventHandlers() {
         this.ami.on("managerevent", (event) => {
-            
+            //console.log('event: ', event.event)
             switch (event.event) {
                 case "OriginateResponse":
                     console.log(`📞 Respuesta de Originate: ${event.response}, ActionID: ${event.actionid}, UniqueID: ${event.uniqueid}`);

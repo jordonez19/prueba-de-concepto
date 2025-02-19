@@ -3,7 +3,7 @@ const AmiClient = require('asterisk-manager');
 class AsteriskCaller {
     constructor(config = {}) {
         this.config = {
-            host: '54.227.121.232',
+            host: '3.86.251.200',
             port: 5038,
             username: 'xavi_ami',
             password: 'password'
@@ -89,7 +89,7 @@ class AsteriskCaller {
 // Ejemplo de uso
 async function main() {
     const caller = new AsteriskCaller({
-        host: '54.227.121.232',
+        host: '3.86.251.200',
         port: 5038,
         username: 'xavi_ami',
         password: 'password'
