@@ -39,8 +39,6 @@ class AsteriskCaller {
     setupEventHandlers() {
         this.ami.on("managerevent", (event) => {
             
-            console.log(event.event)
-            
             switch (event.event) {
                 case "OriginateResponse":
                     console.log(`📞 Respuesta de Originate: ${event.response}, ActionID: ${event.actionid}, UniqueID: ${event.uniqueid}`);
