@@ -99,7 +99,7 @@ async function main() {
         await caller.connect();
 
         // Llamar y conectar al IVR
-        const result = await caller.makeCallToIVR('3007845300', '1004', 'ivr1');
+        const result = await caller.makeCallToIVR('3507834094', '1004', 'ivr1');
         console.log('Llamada iniciada:', result);
 
         // Mantener el script corriendo para recibir eventos
